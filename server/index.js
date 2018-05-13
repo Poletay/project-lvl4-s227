@@ -25,7 +25,7 @@ export default () => {
   app.keys = ['some secret hurr'];
   app.use(session(app));
   app.use(bodyParser());
-  app.use(favicon(path.join(__dirname, '..', 'assets/favicon.ico')));
+  app.use(favicon(path.join(__dirname, '..', 'assets/favicon-32.png')));
   app.use(middleware({
     config: webpackConfig,
   }));
