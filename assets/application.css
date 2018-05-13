@@ -1,3 +1,73 @@
-.fade.in {
-  opacity: 1;
+body{
+  margin:0;
+  font-size:16px;
+  line-height:24px;
+  background-color:#fff
+}
+
+#container {
+  display:flex;
+  flex-grow:1;
+  overflow:hidden;
+}
+
+.main-row {
+  display:flex;
+  flex-grow:1;
+  overflow:hidden;
+  min-height: 100vh
+}
+
+.left-panel {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  flex-basis:220px;
+  flex-shrink:0;
+  min-width:1px;
+  max-width:260px;
+  background:#4d394b;
+  box-sizing:content-box;
+  z-index:201;
+  visibility:visible;
+  bottom: 6px;
+  top: 6px;
+  right: 4px;
+  left: 4px;
+  margin-right: 10px;
+  color: rgb(202,196,201);
+}
+
+.main-panel {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  flex-grow:1;
+  min-width:1px
+}
+
+.chat-area {
+  display: block;
+  position: absolute;
+  top: 6px;
+}
+
+.new-message-area {
+  display: block;
+  position: absolute;
+  bottom: 10px;
+  background-color: red;
+  width: 99%;
+  height: 40px;
+}
+
+.channels-list {
+  list-style-type: square;
+  padding-left: 40px;
+  margin-top: 0px;
+}
+
+.channels-header {
+  padding-left: 20px;
+  margin-bottom: 0px;
 }

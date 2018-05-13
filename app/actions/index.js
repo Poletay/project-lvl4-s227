@@ -1,3 +1,4 @@
 import { createAction } from 'redux-actions';
 
-export const getChannels = createAction('GET_CHANNELS');
+export const initChannels = createAction('INIT_CHANNELS');
+export const initUser = createAction('INIT_USER');
