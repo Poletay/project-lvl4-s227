@@ -28,8 +28,6 @@ body{
   max-width:260px;
   background:#4d394b;
   box-sizing:content-box;
-  z-index:201;
-  visibility:visible;
   bottom: 6px;
   top: 6px;
   right: 4px;
