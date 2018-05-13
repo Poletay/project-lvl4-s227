@@ -53,12 +53,21 @@ body{
 }
 
 .new-message-area {
-  display: block;
   position: absolute;
   bottom: 10px;
-  background-color: red;
   width: 99%;
   height: 40px;
+  text-align: center;
+}
+
+.new-message-text {
+  padding: 0px;
+  border: solid #4d394b 1px;
+  margin: auto;
+  height: 30px;
+  width: 98%;
+  margin-top: 4px;
+  border-radius: 5px;
 }
 
 .channels-list {
