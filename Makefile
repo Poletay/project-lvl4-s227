@@ -15,7 +15,7 @@ test:
 	npm test
 
 lint:
-	npm run eslint .
+	npm run eslint ./app
 
 publish:
 	git push heroku master
