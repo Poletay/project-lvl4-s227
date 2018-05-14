@@ -5,10 +5,11 @@ import { createStore } from 'redux';
 import Cookie from 'js-cookie';
 import Faker from 'faker';
 import gon from 'gon';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import reducers from './reducers';
 import { initChannels, initUser } from './actions';
 import App from './components/App.jsx';
-import '../assets/application.css';
+// import '../assets/application.css';
 
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__; // eslint-disable-line no-underscore-dangle
 const devtoolMiddleware = ext && ext();

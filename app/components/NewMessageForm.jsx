@@ -8,7 +8,7 @@ class NewMessageForm extends React.Component {
       <div className="new-message-area">
         <form className="new-message-form" onSubmit={this.props.handleSubmit(this.addMessage)}>
           <div>
-            <Field className="new-message-text" name="text" required component="input" type="text" />
+            <Field className="w-100 p-2 border border-secondary rounded" name="text" placeholder="Message" required component="input" type="text" />
           </div>
         </form>
       </div>
