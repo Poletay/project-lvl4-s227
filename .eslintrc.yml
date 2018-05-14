@@ -6,6 +6,10 @@ extends:
 
 parser: babel-eslint
 
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+
 env:
   browser: true
   node: true

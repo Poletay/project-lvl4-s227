@@ -16,12 +16,10 @@ const renderChannels = (channels) => {
   );
 };
 
-const ChannelsList = ({ channels }) => {
-  return (
-    <div>
-      {renderChannels(channels)}
-    </div>
-  );
-};
+const ChannelsList = ({ channels }) => (
+  <div>
+    {renderChannels(channels)}
+  </div>
+);
 
 export default ChannelsList;
