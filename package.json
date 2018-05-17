@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "bin": {
-    "hexlet": "dist/bin/hexlet.js"
+    "slack": "dist/bin/slack.js"
   },
   "engines": {
     "node": "9"
@@ -13,9 +13,7 @@
     "nodemon": "nodemon",
     "test": "jest",
     "babel-node": "babel-node",
-    "flow": "flow",
-    "flow-typed": "flow-typed",
-    "start": "babel-node ./server/bin/slack.js",
+    "start": "node ./dist/bin/slack.js",
     "eslint": "eslint",
     "webpack": "webpack",
     "build-server": "babel server --out-dir dist --source-maps inline",
@@ -25,14 +23,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:hexlet/frontend_l4_chat_project.git"
+    "url": "https://github.com/Poletay/project-lvl4-s227.git"
   },
-  "author": "Kirill Mokevnin",
+  "author": "Aleksey Smirnov",
   "license": "ISC",
-  "bugs": {
-    "url": ""
-  },
-  "homepage": "",
   "dependencies": {
     "@babel/cli": "^7.0.0-beta.46",
     "@babel/core": "^7.0.0-beta.46",

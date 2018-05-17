@@ -8,7 +8,6 @@ install-deps:
 
 build:
 	rm -rf dist
-	npm run build
 	npm run webpack -- -p --env production
 
 test:
