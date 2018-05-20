@@ -3,8 +3,10 @@ import Component from '../components/NewMessageForm';
 import * as actionCreators from '../actions';
 
 export default connect(
-  () => {
-    const props = {};
+  (state) => {
+    const props = {
+      currentChannelId: state.currentChannelId,
+    };
     return props;
   },
   actionCreators,

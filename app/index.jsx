@@ -1,15 +1,16 @@
+import '@babel/polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import Cookie from 'js-cookie';
 import Faker from 'faker';
+import thunk from 'redux-thunk';
 import gon from 'gon';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reducers from './reducers';
 import { initChannels, initUser } from './actions';
 import App from './components/App.jsx';
-// import '../assets/application.css';
 
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__; // eslint-disable-line no-underscore-dangle
 const devtoolMiddleware = ext && ext();
@@ -25,10 +26,13 @@ const getUserName = () => {
 
 const store = createStore(
   reducers,
-  devtoolMiddleware,
+  compose(
+    applyMiddleware(thunk),
+    devtoolMiddleware,
+  ),
 );
 
-store.dispatch(initChannels(gon.channels));
+store.dispatch(initChannels(gon));
 store.dispatch(initUser(getUserName()));
 
 render(

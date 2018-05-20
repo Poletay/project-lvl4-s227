@@ -2,7 +2,11 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 class NewMessageForm extends React.Component {
-  addMessage = () => {}
+  addMessage = (values) => {
+    this.props.addMessage(values, this.props.currentChannelId);
+    this.props.reset();
+  }
+
   render() {
     return (
       <div className="new-message-area">
