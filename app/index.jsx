@@ -34,7 +34,7 @@ const getUserName = () => {
 };
 
 const getSocket = () => {
-  const io = socket('http://localhost:4000');
+  const io = socket(`http://localhost:${process.env.PORT || 4000}`);
   io.on('newMessage', (data) => {
     store.dispatch(newMessage(data));
   });
