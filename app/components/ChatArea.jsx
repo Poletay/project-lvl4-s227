@@ -2,21 +2,15 @@ import React from 'react';
 
 const renderMessages = (messages, currentChannelId) => {
   const messageList = messages.filter(m => m.channelId === currentChannelId).map(m => (
-    <li key={m.id}>
+    <div className="container-fluid" key={m.id}>
       {m.text}
-    </li>
-  ));
-  return (
-    <div>
-      <ul>
-        {messageList}
-      </ul>
     </div>
-  );
+  ));
+  return messageList;
 };
 
 const ChatArea = ({ messages, currentChannelId }) => (
-  <div className="chat-area fdfdf">
+  <div className="container-fluid">
     {renderMessages(messages, currentChannelId)}
   </div>
 );
