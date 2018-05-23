@@ -38,7 +38,7 @@ const getUserName = () => {
 };
 
 const getSocket = () => {
-  const io = socket(socketUrl);
+  const io = socket();
   io.on('newMessage', (data) => {
     store.dispatch(newMessage(data));
   });
