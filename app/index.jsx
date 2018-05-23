@@ -16,6 +16,10 @@ import App from './components/App.jsx';
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__; // eslint-disable-line no-underscore-dangle
 const devtoolMiddleware = ext && ext();
 
+const socketUrl = process.env.PORT ?
+  `https://aqueous-atoll-71727.herokuapp.com:${process.env.PORT}`
+  : 'http://localhost:4000';
+
 const store = createStore(
   reducers,
   compose(
@@ -34,7 +38,7 @@ const getUserName = () => {
 };
 
 const getSocket = () => {
-  const io = socket(`http://localhost:${process.env.PORT || 4000}`);
+  const io = socket(socketUrl);
   io.on('newMessage', (data) => {
     store.dispatch(newMessage(data));
   });
