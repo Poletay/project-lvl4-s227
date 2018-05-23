@@ -39,6 +39,12 @@ const user = handleActions({
   },
 }, {});
 
+const socket = handleActions({
+  [actions.initSocket](state, action) {
+    return action.payload;
+  }
+}, {});
+
 export default combineReducers({
   form: formReducer,
   channels,
@@ -46,4 +52,5 @@ export default combineReducers({
   messages,
   messageAddingState,
   user,
+  socket,
 });

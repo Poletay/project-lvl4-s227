@@ -5,6 +5,7 @@ import routes from '../routes';
 
 export const initChannels = createAction('INIT_CHANNELS');
 export const initUser = createAction('INIT_USER');
+export const initSocket = createAction('INIT_SOCKET');
 
 export const addMessageRequest = createAction('MESSAGE_ADD_REQUEST');
 export const addMessageSuccess = createAction('MESSAGE_ADD_SUCCESS');
