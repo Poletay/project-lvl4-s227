@@ -14,7 +14,7 @@ const App = () => (
           <div className="card-header text-secondary">
             <h4>SLACK</h4>
           </div>
-          <div className="card-body">
+          <div className="card-body" style={{ overflow: 'auto' }}>
             <ChatArea />
           </div>
           <div className="card-footer">
