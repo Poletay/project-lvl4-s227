@@ -2,14 +2,14 @@ import React from 'react';
 
 const renderChannels = (channels) => {
   const channelsList = channels.map(c => (
-    <li className="channels-item" key={c.id}>
+    <li key={c.id}>
       {c.name}
     </li>
   ));
   return (
-    <div className="channels-area">
-      <h4 className="channels-header">Channels</h4>
-      <ul className="channels-list">
+    <div>
+      <h4>Channels</h4>
+      <ul>
         {channelsList}
       </ul>
     </div>

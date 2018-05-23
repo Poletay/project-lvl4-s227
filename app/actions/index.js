@@ -7,17 +7,19 @@ export const initChannels = createAction('INIT_CHANNELS');
 export const initUser = createAction('INIT_USER');
 export const initSocket = createAction('INIT_SOCKET');
 
-export const addMessageRequest = createAction('MESSAGE_ADD_REQUEST');
-export const addMessageSuccess = createAction('MESSAGE_ADD_SUCCESS');
-export const addMessageFailure = createAction('MESSAGE_ADD_FAILURE');
+export const sendMessageRequest = createAction('MESSAGE_SEND_REQUEST');
+export const sendMessageSuccess = createAction('MESSAGE_SEND_SUCCESS');
+export const sendMessageFailure = createAction('MESSAGE_SEND_FAILURE');
+
+export const newMessage = createAction('NEW_MESSAGE');
 
 export const addMessage = (message, currentChannelId) => async (dispatch) => {
-  dispatch(addMessageRequest());
+  dispatch(sendMessageRequest());
   try {
     const url = routes.addMessageUrl(currentChannelId);
     await axios.post(url, { data: { attributes: { text: message.text } } });
-    dispatch(addMessageSuccess());
+    dispatch(sendMessageSuccess());
   } catch (e) {
-    dispatch(addMessageFailure());
+    dispatch(sendMessageFailure());
   }
 };

@@ -1,8 +1,23 @@
 import React from 'react';
 
-const ChatArea = () => (
+const renderMessages = (messages, currentChannelId) => {
+  const messageList = messages.filter(m => m.channelId === currentChannelId).map(m => (
+    <li key={m.id}>
+      {m.text}
+    </li>
+  ));
+  return (
+    <div>
+      <ul>
+        {messageList}
+      </ul>
+    </div>
+  );
+};
+
+const ChatArea = ({ messages, currentChannelId }) => (
   <div className="chat-area fdfdf">
-    Здесь будет история сообщений в чате
+    {renderMessages(messages, currentChannelId)}
   </div>
 );
 

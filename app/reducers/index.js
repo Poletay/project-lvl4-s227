@@ -3,14 +3,14 @@ import { reducer as formReducer } from 'redux-form';
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
-const messageAddingState = handleActions({
-  [actions.addMessageRequest]() {
+const messageSendingState = handleActions({
+  [actions.sendMessageRequest]() {
     return 'requested';
   },
-  [actions.addMessageFailure]() {
+  [actions.sendMessageFailure]() {
     return 'failed';
   },
-  [actions.addMessageSuccess]() {
+  [actions.sendMessageSuccess]() {
     return 'successed';
   },
 }, 'none');
@@ -31,6 +31,9 @@ const messages = handleActions({
   [actions.initChannels](state, { payload }) {
     return [...payload.messages];
   },
+  [actions.newMessage](state, { payload: { data: { attributes } } }) {
+    return [...state, attributes];
+  },
 }, {});
 
 const user = handleActions({
@@ -42,7 +45,7 @@ const user = handleActions({
 const socket = handleActions({
   [actions.initSocket](state, action) {
     return action.payload;
-  }
+  },
 }, {});
 
 export default combineReducers({
@@ -50,7 +53,7 @@ export default combineReducers({
   channels,
   currentChannelId,
   messages,
-  messageAddingState,
+  messageSendingState,
   user,
   socket,
 });
