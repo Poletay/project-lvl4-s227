@@ -7,6 +7,7 @@ import Cookie from 'js-cookie';
 import Faker from 'faker';
 import thunk from 'redux-thunk';
 import socket from 'socket.io-client';
+import _ from 'lodash';
 import gon from 'gon';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reducers from './reducers';
@@ -16,12 +17,14 @@ import App from './components/App.jsx';
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__; // eslint-disable-line no-underscore-dangle
 const devtoolMiddleware = ext && ext();
 
+const middlewareFuncs = _.compact([
+  applyMiddleware(thunk),
+  devtoolMiddleware,
+]);
+
 const store = createStore(
   reducers,
-  compose(
-    applyMiddleware(thunk),
-    devtoolMiddleware,
-  ),
+  compose(...middlewareFuncs),
 );
 
 const getUserName = () => {
@@ -33,19 +36,8 @@ const getUserName = () => {
   return Cookie.get('userName');
 };
 
-const getSocketUrl = () => {
-  const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-  const { location: { hostname } } = window;
-  const { location: { port } } = window;
-  const socketUrl = `${protocol}${hostname}:${port}`;
-  return socketUrl;
-};
-
 const getSocket = () => {
-  const socketUrl = getSocketUrl();
-  console.log(`URL: ${socketUrl}`);
-  console.log(window.location.port);
-  const io = socket(socketUrl);
+  const io = socket();
   io.on('newMessage', (data) => {
     store.dispatch(newMessage(data));
   });
