@@ -44,7 +44,7 @@ const getSocketUrl = () => {
 const getSocket = () => {
   const socketUrl = getSocketUrl();
   console.log(`URL: ${socketUrl}`);
-  console.log(process.env.PORT);
+  console.log(window.location.port);
   const io = socket(socketUrl);
   io.on('newMessage', (data) => {
     store.dispatch(newMessage(data));
