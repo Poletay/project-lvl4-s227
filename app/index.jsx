@@ -35,8 +35,20 @@ const getUserName = () => {
   Cookie.set('userName', Faker.name.findName());
   return Cookie.get('userName');
 };
+/*
+const getSocketUrl = () => {
+  const { location: { hostname } } = window;
+  const { location: { port } } = window;
+  const socketUrl = `${protocol}${hostname}:${port}`;
+  return socketUrl;
+};
+*/
 
 const getSocket = () => {
+  console.log(`Port: ${window.location.port}`);
+  console.log(`Hostname: ${window.location.hostname}`);
+  console.log(`Host: ${window.location.host}`);
+
   const io = socket();
   io.on('newMessage', (data) => {
     store.dispatch(newMessage(data));
