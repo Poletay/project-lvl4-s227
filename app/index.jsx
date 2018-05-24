@@ -36,7 +36,7 @@ const getUserName = () => {
 const getSocketUrl = () => {
   const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
   const { location: { hostname } } = window;
-  const port = process.env.PORT || 4000;
+  const { location: { port } } = window;
   const socketUrl = `${protocol}${hostname}:${port}`;
   return socketUrl;
 };
