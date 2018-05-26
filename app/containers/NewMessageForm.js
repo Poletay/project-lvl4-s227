@@ -6,6 +6,7 @@ export default connect(
   (state) => {
     const props = {
       currentChannelId: state.currentChannelId,
+      userName: state.user,
     };
     return props;
   },

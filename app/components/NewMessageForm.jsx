@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 class NewMessageForm extends React.Component {
   addMessage = (values) => {
-    this.props.addMessage(values, this.props.currentChannelId);
+    this.props.addMessage(values, this.props.currentChannelId, this.props.userName);
     this.props.reset();
   }
 
