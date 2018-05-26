@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
-    path: `${__dirname}/dist/`,
+    path: `${__dirname}/dist/app/`,
     publicPath: '/assets/',
   },
   module: {

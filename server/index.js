@@ -1,7 +1,3 @@
-// @flow
-
-// import 'babel-polyfill';
-
 import path from 'path';
 import Koa from 'koa';
 import Pug from 'koa-pug';
@@ -10,7 +6,6 @@ import http from 'http';
 import Router from 'koa-router';
 import koaLogger from 'koa-logger';
 import favicon from 'koa-favicon';
-// import serve from 'koa-static';
 import middleware from 'koa-webpack';
 import bodyParser from 'koa-bodyparser';
 import session from 'koa-generic-session';
@@ -28,6 +23,7 @@ export default () => {
   app.use(favicon(path.join(__dirname, '..', 'assets/favicon-32.png')));
   app.use(middleware({
     config: webpackConfig,
+    hot: false,
   }));
 
   const router = new Router();

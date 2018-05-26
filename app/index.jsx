@@ -45,12 +45,8 @@ const getSocketUrl = () => {
 */
 
 const getSocket = () => {
-  console.log(`Port: ${window.location.port}`);
-  console.log(`Hostname: ${window.location.hostname}`);
-  console.log(`Host: ${window.location.host}`);
-  console.log('sdfds');
-
   const io = socket();
+
   io.on('newMessage', (data) => {
     store.dispatch(newMessage(data));
   });
