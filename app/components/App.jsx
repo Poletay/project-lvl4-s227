@@ -1,7 +1,7 @@
 import React from 'react';
-import ChannelsList from '../containers/ChannelsList';
-import ChatArea from '../containers/ChatArea';
-import NewMessageForm from '../containers/NewMessageForm';
+import ChannelsList from '../components/ChannelsList';
+import ChatArea from '../components/ChatArea';
+import NewMessageForm from '../components/NewMessageForm';
 
 const App = () => (
   <div className="container-fluid h-100">

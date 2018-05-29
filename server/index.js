@@ -23,7 +23,7 @@ export default () => {
   app.use(favicon(path.join(__dirname, '..', 'assets/favicon-32.png')));
   app.use(middleware({
     config: webpackConfig,
-    hot: false,
+    hot: true,
   }));
 
   const router = new Router();

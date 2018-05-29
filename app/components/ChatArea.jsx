@@ -1,24 +1,33 @@
 import React from 'react';
+import connect from '../connect';
 
-const renderMessages = (messages, currentChannelId) => {
-  const messageList = messages.filter(m => m.channelId === currentChannelId).map(m => (
-    <div className="container-fluid" key={m.id}>
-      <div>
-        <b>{m.autor}</b>
-      </div>
-      <div>
-        {m.text}
-      </div>
-      <br />
-    </div>
-  ));
-  return messageList;
+const mapStateToProps = ({ messages, currentChannelId }) => {
+  const props = { messages, currentChannelId };
+  return props;
 };
 
-const ChatArea = ({ messages, currentChannelId }) => (
-  <div className="container-fluid">
-    {renderMessages(messages, currentChannelId)}
-  </div>
-);
+@connect(mapStateToProps)
+export default class ChatArea extends React.Component {
+  renderMessages = (messages, currentChannelId) => {
+    const messageList = messages.filter(m => m.channelId === currentChannelId).map(m => (
+      <div className="container-fluid" key={m.id}>
+        <div>
+          <b>{m.autor}</b>
+        </div>
+        <div>
+          {m.text}
+        </div>
+        <br />
+      </div>
+    ));
+    return messageList;
+  }
 
-export default ChatArea;
+  render() {
+    return (
+      <div className="container-fluid">
+        {this.renderMessages(this.props.messages, this.props.currentChannelId)}
+      </div>
+    );
+  }
+}

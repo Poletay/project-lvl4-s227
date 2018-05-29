@@ -1,25 +1,35 @@
 import React from 'react';
+import connect from '../connect';
 
-const renderChannels = (channels) => {
-  const channelsList = channels.map(c => (
-    <li key={c.id}>
-      {c.name}
-    </li>
-  ));
-  return (
-    <div>
-      <h4>Channels</h4>
-      <ul>
-        {channelsList}
-      </ul>
-    </div>
-  );
+const mapStateToProps = ({ channels }) => {
+  const props = { channels };
+  return props;
 };
 
-const ChannelsList = ({ channels }) => (
-  <div>
-    {renderChannels(channels)}
-  </div>
-);
+@connect(mapStateToProps)
+export default class ChannelsList extends React.Component {
+  renderChannels = () => {
+    const { channels } = this.props;
+    const channelsList = channels.map(c => (
+      <li key={c.id}>
+        {c.name}
+      </li>
+    ));
+    return (
+      <div>
+        <h4>Channels <span>+</span></h4>
+        <ul>
+          {channelsList}
+        </ul>
+      </div>
+    );
+  };
 
-export default ChannelsList;
+  render() {
+    return (
+      <div>
+        {this.renderChannels()}
+      </div>
+    );
+  }
+}
