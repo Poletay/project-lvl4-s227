@@ -2,14 +2,15 @@ import React from 'react';
 import connect from '../connect';
 
 const mapStateToProps = ({ messages, currentChannelId }) => {
-  const props = { messages, currentChannelId };
+  const messageList = messages.filter(m => m.channelId === currentChannelId);
+  const props = { messages: messageList };
   return props;
 };
 
 @connect(mapStateToProps)
 export default class ChatArea extends React.Component {
-  renderMessages = (messages, currentChannelId) => {
-    const messageList = messages.filter(m => m.channelId === currentChannelId).map(m => (
+  renderMessages = (messages) => {
+    const messageList = messages.map(m => (
       <div className="container-fluid" key={m.id}>
         <div>
           <b>{m.autor}</b>

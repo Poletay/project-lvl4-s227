@@ -21,5 +21,6 @@ export const addMessage = (message, currentChannelId, userName) => async (dispat
     dispatch(sendMessageSuccess());
   } catch (e) {
     dispatch(sendMessageFailure());
+    console.log(`Error for sending message. ${e.message}`); // eslint-disable-line no-console
   }
 };
