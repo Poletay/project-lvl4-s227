@@ -35,14 +35,6 @@ const getUserName = () => {
   Cookie.set('userName', Faker.name.findName());
   return Cookie.get('userName');
 };
-/*
-const getSocketUrl = () => {
-  const { location: { hostname } } = window;
-  const { location: { port } } = window;
-  const socketUrl = `${protocol}${hostname}:${port}`;
-  return socketUrl;
-};
-*/
 
 const getSocket = () => {
   const io = socket();

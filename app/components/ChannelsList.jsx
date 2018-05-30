@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'reactstrap';
+import NewChannelForm from './NewChannelForm';
 import connect from '../connect';
 
 const mapStateToProps = ({ channels }) => {
@@ -8,19 +10,29 @@ const mapStateToProps = ({ channels }) => {
 
 @connect(mapStateToProps)
 export default class ChannelsList extends React.Component {
+  onClick = currentChannelId => (e) => {
+    e.preventDefault();
+    this.props.changeChannel({ currentChannelId });
+  }
+
   renderChannels = () => {
     const { channels } = this.props;
     const channelsList = channels.map(c => (
       <li key={c.id}>
-        {c.name}
+        <Button color="link" onClick={this.onClick(c.id)}>{c.name}</Button>
       </li>
     ));
     return (
       <div>
-        <h4>Channels <span>+</span></h4>
-        <ul>
-          {channelsList}
-        </ul>
+        <div>
+          <h4>Channels <span>+</span></h4>
+          <ul>
+            {channelsList}
+          </ul>
+        </div>
+        <div>
+          <NewChannelForm />
+        </div>
       </div>
     );
   };

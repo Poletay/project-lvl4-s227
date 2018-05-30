@@ -15,14 +15,33 @@ const messageSendingState = handleActions({
   },
 }, 'none');
 
+const channelAddingState = handleActions({
+  [actions.addChannelRequest]() {
+    return 'requested';
+  },
+  [actions.addChannelFailure]() {
+    return 'failed';
+  },
+  [actions.addChannelSuccess]() {
+    return 'successed';
+  },
+}, 'none');
+
+
 const channels = handleActions({
   [actions.initChannels](state, { payload }) {
     return [...payload.channels];
+  },
+  [actions.newChannel](state, { payload: { data: { attributes } } }) {
+    return [...state, attributes];
   },
 }, {});
 
 const currentChannelId = handleActions({
   [actions.initChannels](state, { payload }) {
+    return payload.currentChannelId;
+  },
+  [actions.changeChannel](state, { payload }) {
     return payload.currentChannelId;
   },
 }, {});
@@ -51,6 +70,7 @@ const socket = handleActions({
 export default combineReducers({
   form: formReducer,
   channels,
+  channelAddingState,
   currentChannelId,
   messages,
   messageSendingState,
