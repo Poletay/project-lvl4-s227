@@ -11,14 +11,15 @@ import _ from 'lodash';
 import gon from 'gon';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reducers from './reducers';
-import App from './components/App.jsx';
+import App from './components/App';
 import {
   initChannels,
   initUser,
   initSocket,
-  newMessage,
-  newChannel,
+  addNewMessage,
+  addNewChannel,
   removeChannel,
+  renameChannel,
 } from './actions';
 
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__; // eslint-disable-line no-underscore-dangle
@@ -47,13 +48,16 @@ const getSocket = () => {
   const io = socket();
 
   io.on('newMessage', (data) => {
-    store.dispatch(newMessage(data));
+    store.dispatch(addNewMessage(data));
   });
   io.on('newChannel', (data) => {
-    store.dispatch(newChannel(data));
+    store.dispatch(addNewChannel(data));
   });
   io.on('removeChannel', (data) => {
     store.dispatch(removeChannel(data));
+  });
+  io.on('renameChannel', (data) => {
+    store.dispatch(renameChannel(data));
   });
 
   return io;

@@ -19,28 +19,56 @@ export const deleteChannelRequest = createAction('CHANNEL_DELETE_REQUEST');
 export const deleteChannelSuccess = createAction('CHANNEL_DELETE_SUCCESS');
 export const deleteChannelFailure = createAction('CHANNEL_DELETE_FAILURE');
 
-export const newMessage = createAction('NEW_MESSAGE');
-export const newChannel = createAction('NEW_CHANNEL');
+export const renameChannelRequest = createAction('CHANNEL_RENAME_REQUEST');
+export const renameChannelSuccess = createAction('CHANNEL_RENAME_SUCCESS');
+export const renameChannelFailure = createAction('CHANNEL_RENAME_FAILURE');
+
+export const addNewMessage = createAction('ADD_NEW_MESSAGE');
+export const addNewChannel = createAction('ADD_NEW_CHANNEL');
 export const changeChannel = createAction('CHANGE_CHANNEL');
 export const removeChannel = createAction('REMOVE_CHANNEL');
+export const renameChannel = createAction('RENAME_CHANNEL');
 
 export const deleteChannel = ({ channelId }) => async (dispatch) => {
   dispatch(deleteChannelRequest());
   try {
-    const url = routes.deleteChannelUrl(channelId);
+    const url = routes.getDeleteChannelUrl(channelId);
 
     await axios.delete(url, {});
     dispatch(deleteChannelSuccess());
   } catch (e) {
-    dispatch(addChannelFailure());
+    dispatch(deleteChannelFailure());
     console.log(`Error for deleting channel. ${e.message}`); // eslint-disable-line no-console
   }
 };
 
+export const changeChannelName = ({ text }, { channelId }) => async (dispatch) => {
+  dispatch(renameChannelRequest());
+  try {
+    const url = routes.getRenameChannelUrl(channelId);
+
+    const newChannelData = {
+      data: {
+        attributes: {
+          name: text,
+        },
+      },
+    };
+
+    await axios.patch(url, newChannelData);
+    dispatch(renameChannelSuccess());
+  } catch (e) {
+    dispatch(renameChannelFailure());
+    console.log(`Error for renaming channel. ${e.message}`); // eslint-disable-line no-console
+  }
+};
+
+
 export const addChannel = ({ text }) => async (dispatch) => {
   dispatch(addChannelRequest());
   try {
-    const url = routes.addChannelUrl();
+    const url = routes.getAddChannelUrl();
+
     const newChannelData = {
       data: {
         attributes: {
@@ -60,7 +88,7 @@ export const addChannel = ({ text }) => async (dispatch) => {
 export const addMessage = ({ text }, currentChannelId, userName) => async (dispatch) => {
   dispatch(sendMessageRequest());
   try {
-    const url = routes.addMessageUrl(currentChannelId);
+    const url = routes.getAddMessageUrl(currentChannelId);
     const newMessageData = {
       data: {
         attributes: {

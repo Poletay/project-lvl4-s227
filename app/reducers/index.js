@@ -32,11 +32,17 @@ const channels = handleActions({
   [actions.initChannels](state, { payload }) {
     return [...payload.channels];
   },
-  [actions.newChannel](state, { payload: { data: { attributes } } }) {
+  [actions.addNewChannel](state, { payload: { data: { attributes } } }) {
     return [...state, attributes];
   },
   [actions.removeChannel](state, { payload: { data: { id } } }) {
     return state.filter(c => (c.id !== id));
+  },
+  [actions.renameChannel](state, { payload: { data: { attributes } } }) {
+    const newState = [...state];
+    const channel = newState.find(c => c.id === attributes.id);
+    channel.name = attributes.name;
+    return newState;
   },
 }, {});
 
@@ -53,8 +59,11 @@ const messages = handleActions({
   [actions.initChannels](state, { payload }) {
     return [...payload.messages];
   },
-  [actions.newMessage](state, { payload: { data: { attributes } } }) {
+  [actions.addNewMessage](state, { payload: { data: { attributes } } }) {
     return [...state, attributes];
+  },
+  [actions.removeChannel](state, { payload: { data: { id } } }) {
+    return state.filter(m => m.channelId !== id);
   },
 }, {});
 

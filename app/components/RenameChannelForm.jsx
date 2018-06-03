@@ -9,21 +9,22 @@ const mapStateToProps = () => {
 };
 
 @connect(mapStateToProps)
-class NewChannelForm extends React.Component {
+class RenameChannelForm extends React.Component {
   state = {
     modal: false,
   };
 
   onSubmit = (values) => {
-    this.props.addChannel(values);
+    const { channelId } = this.props;
+    this.props.changeChannelName(values, { channelId });
     this.toggle();
   }
 
   toggle = () => {
-    this.props.reset();
     this.setState({
       modal: !this.state.modal,
     });
+    this.props.reset();
   }
 
   render() {
@@ -31,9 +32,9 @@ class NewChannelForm extends React.Component {
       <div style={{ display: 'inline' }}>
         <Button size="sm" color="secondary" onClick={this.toggle}>{this.props.buttonName}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Add new channel.</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Rename the channel.</ModalHeader>
           <ModalBody>
-            Add new channel to channels list.
+            Set new channel Name.
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
               <Field className="w-100 p-2 border border-secondary rounded" name="text" placeholder="Channel Name" required component="input" type="text" />
               <Button type="submit" color="primary">Submit</Button>{' '}
@@ -47,5 +48,5 @@ class NewChannelForm extends React.Component {
 }
 
 export default reduxForm({
-  form: 'newChannel',
-})(NewChannelForm);
+  form: 'renameChannel',
+})(RenameChannelForm);

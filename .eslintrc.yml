@@ -4,9 +4,17 @@ parser: babel-eslint
 
 env:
   browser: true
-
+  node: true
+  
 extends:
   - airbnb
 
+parserOptions:
+  ecmaVersion: 7
+  ecmaFeatures:
+    jsx: true
+
 rules:
   react/prop-types: 0
+  import/no-unresolved: 0
+  import/extensions: 0

@@ -44,6 +44,7 @@
     "debug": "^3.1.0",
     "dotenv": "^4.0.0",
     "faker": "^4.1.0",
+    "immutability-helper": "^2.7.0",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
     "koa": "^2.5.0",

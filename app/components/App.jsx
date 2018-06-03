@@ -1,18 +1,19 @@
 import React from 'react';
-import ChannelsList from '../components/ChannelsList';
-import ChatArea from '../components/ChatArea';
-import NewMessageForm from '../components/NewMessageForm';
+import ChannelsList from './ChannelsList';
+import ChatArea from './ChatArea';
+import ChatHeader from './ChatHeader';
+import NewMessageForm from './NewMessageForm';
 
 const App = () => (
   <div className="container-fluid h-100">
     <div className="row h-100">
-      <div className="col-2 p-3 h-100 bg-secondary text-white">
+      <div className="col-3 p-3 h-100 bg-secondary text-white">
         <ChannelsList />
       </div>
-      <div className="col-10 h-100">
+      <div className="col-9 h-100">
         <div className="card h-100">
           <div className="card-header text-secondary">
-            <h4>SLACK</h4>
+            <ChatHeader />
           </div>
           <div className="card-body" style={{ overflow: 'auto' }}>
             <ChatArea />

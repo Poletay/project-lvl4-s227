@@ -8,7 +8,7 @@ const mapStateToProps = () => {
 };
 
 @connect(mapStateToProps)
-export default class NewChannelForm extends React.Component {
+export default class RemoveChannelForm extends React.Component {
   state = {
     modal: false,
   };
@@ -29,11 +29,10 @@ export default class NewChannelForm extends React.Component {
   render() {
     return (
       <div style={{ display: 'inline' }}>
-        <Button color="secondary" onClick={this.toggle}>-</Button>
+        <Button size="sm" color="secondary" onClick={this.toggle}>{this.props.buttonName}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Delete channel.</ModalHeader>
           <ModalBody>
-            Add new channel to channels list.
             <Button color="primary" onClick={this.deleteChannel}>Submit</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalBody>
