@@ -13,7 +13,7 @@
     "nodemon": "nodemon",
     "test": "jest",
     "babel-node": "babel-node",
-    "start": "babel-node dist/bin/slack.js",
+    "start": "babel-node server/bin/slack.js",
     "eslint": "eslint",
     "webpack": "webpack",
     "build-server": "babel server --out-dir dist --source-maps inline",
