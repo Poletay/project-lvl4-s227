@@ -3,30 +3,49 @@ import { reducer as formReducer } from 'redux-form';
 import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
-const messageSendingState = handleActions({
-  [actions.sendMessageRequest]() {
-    return 'requested';
+const requestsState = handleActions({
+  [actions.sendMessageRequest](state) {
+    return { ...state, messageSendingState: 'requested' };
   },
-  [actions.sendMessageFailure]() {
-    return 'failed';
+  [actions.sendMessageFailure](state) {
+    return { ...state, messageSendingState: 'failed' };
   },
-  [actions.sendMessageSuccess]() {
-    return 'successed';
+  [actions.sendMessageSuccess](state) {
+    return { ...state, messageSendingState: 'successed' };
   },
-}, 'none');
-
-const channelAddingState = handleActions({
-  [actions.addChannelRequest]() {
-    return 'requested';
+  [actions.addChannelRequest](state) {
+    return { ...state, channelAddingState: 'requested' };
   },
-  [actions.addChannelFailure]() {
-    return 'failed';
+  [actions.addChannelFailure](state) {
+    return { ...state, channelAddingState: 'failed' };
   },
-  [actions.addChannelSuccess]() {
-    return 'successed';
+  [actions.addChannelSuccess](state) {
+    return { ...state, channelAddingState: 'successed' };
   },
-}, 'none');
-
+  [actions.deleteChannelRequest](state) {
+    return { ...state, channelDeletingState: 'requested' };
+  },
+  [actions.deleteChannelFailure](state) {
+    return { ...state, channelDeletingState: 'failed' };
+  },
+  [actions.deleteChannelSuccess](state) {
+    return { ...state, channelDeletingState: 'successed' };
+  },
+  [actions.renameChannelRequest](state) {
+    return { ...state, channelRenamingState: 'requested' };
+  },
+  [actions.renameChannelFailure](state) {
+    return { ...state, channelRenamingState: 'failed' };
+  },
+  [actions.renameChannelSuccess](state) {
+    return { ...state, channelRenamingState: 'successed' };
+  },
+}, {
+  messageSendingState: 'none',
+  channelAddingState: 'none',
+  channelDeletingState: 'none',
+  channelRenamingState: 'none',
+});
 
 const channels = handleActions({
   [actions.initChannels](state, { payload }) {
@@ -53,6 +72,10 @@ const currentChannelId = handleActions({
   [actions.changeChannel](state, { payload }) {
     return payload.currentChannelId;
   },
+  [actions.removeChannel](state, { payload: { data: { id } } }) {
+    const defaultCurrentChannelId = 1;
+    return state === id ? defaultCurrentChannelId : state;
+  },
 }, {});
 
 const messages = handleActions({
@@ -67,25 +90,10 @@ const messages = handleActions({
   },
 }, {});
 
-const user = handleActions({
-  [actions.initUser](state, action) {
-    return action.payload;
-  },
-}, {});
-
-const socket = handleActions({
-  [actions.initSocket](state, action) {
-    return action.payload;
-  },
-}, {});
-
 export default combineReducers({
   form: formReducer,
   channels,
-  channelAddingState,
   currentChannelId,
   messages,
-  messageSendingState,
-  user,
-  socket,
+  requestsState,
 });

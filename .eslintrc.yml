@@ -8,6 +8,8 @@ env:
   
 extends:
   - airbnb
+  - "plugin:react/recommended"
+  - "plugin:import/react"
 
 parserOptions:
   ecmaVersion: 7
@@ -16,5 +18,3 @@ parserOptions:
 
 rules:
   react/prop-types: 0
-  import/no-unresolved: 0
-  import/extensions: 0
