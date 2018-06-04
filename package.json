@@ -4,7 +4,7 @@
   "description": "My 4th project on Hexlet.",
   "main": "dist/index.js",
   "bin": {
-    "slack": "dist1/bin/slack.js"
+    "slack": "dist/bin/slack.js"
   },
   "engines": {
     "node": "9"

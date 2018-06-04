@@ -1,7 +1,7 @@
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: [
-    `${__dirname}/app/index.jsx`,
+    `${__dirname}/app1/index.jsx`,
   ],
   externals: {
     gon: 'gon',
@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
-    path: `${__dirname}/dist/app/`,
+    path: `${__dirname}/dist/app2/`,
     publicPath: '/assets/',
   },
   module: {
