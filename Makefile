@@ -15,7 +15,7 @@ test:
 	npm test
 
 lint:
-	npm run eslint ./app/**/*.jsx ./app/**/*.js
+	npm run eslint --ext ".jsx" .
 
 publish:
 	git push heroku master
