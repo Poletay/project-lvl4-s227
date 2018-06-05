@@ -4,48 +4,16 @@ import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
 const requestsState = handleActions({
-  [actions.sendMessageRequest](state) {
-    return { ...state, messageSendingState: 'requested' };
+  [actions.makeRequest](state, { payload: { requestName } }) {
+    return { ...state, [requestName]: 'requested' };
   },
-  [actions.sendMessageFailure](state) {
-    return { ...state, messageSendingState: 'failed' };
+  [actions.makeFailure](state, { payload: { requestName } }) {
+    return { ...state, [requestName]: 'failed' };
   },
-  [actions.sendMessageSuccess](state) {
-    return { ...state, messageSendingState: 'successed' };
+  [actions.makeSuccess](state, { payload: { requestName } }) {
+    return { ...state, [requestName]: 'successed' };
   },
-  [actions.addChannelRequest](state) {
-    return { ...state, channelAddingState: 'requested' };
-  },
-  [actions.addChannelFailure](state) {
-    return { ...state, channelAddingState: 'failed' };
-  },
-  [actions.addChannelSuccess](state) {
-    return { ...state, channelAddingState: 'successed' };
-  },
-  [actions.deleteChannelRequest](state) {
-    return { ...state, channelDeletingState: 'requested' };
-  },
-  [actions.deleteChannelFailure](state) {
-    return { ...state, channelDeletingState: 'failed' };
-  },
-  [actions.deleteChannelSuccess](state) {
-    return { ...state, channelDeletingState: 'successed' };
-  },
-  [actions.renameChannelRequest](state) {
-    return { ...state, channelRenamingState: 'requested' };
-  },
-  [actions.renameChannelFailure](state) {
-    return { ...state, channelRenamingState: 'failed' };
-  },
-  [actions.renameChannelSuccess](state) {
-    return { ...state, channelRenamingState: 'successed' };
-  },
-}, {
-  messageSendingState: 'none',
-  channelAddingState: 'none',
-  channelDeletingState: 'none',
-  channelRenamingState: 'none',
-});
+}, {});
 
 const channels = handleActions({
   [actions.initChannels](state, { payload }) {
