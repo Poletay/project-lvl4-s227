@@ -1,4 +1,4 @@
- import '@babel/polyfill';
+import '@babel/polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -9,10 +9,8 @@ import _ from 'lodash';
 import gon from 'gon'; // eslint-disable-line
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reducers from './reducers';
-import UserContext from './components/UserContext';
 import App from './components/App';
 import {
-  initChannels,
   addNewMessage,
   addNewChannel,
   removeChannel,
@@ -22,6 +20,15 @@ import {
 const ext = window.__REDUX_DEVTOOLS_EXTENSION__; // eslint-disable-line no-underscore-dangle
 const devtoolMiddleware = ext && ext();
 
+const defaultState = {
+  messages: gon.messages,
+  channels: {
+    channelsList: gon.channels,
+    defaultChannelId: gon.currentChannelId,
+    currentChannelId: gon.currentChannelId,
+  },
+};
+
 const middlewareFuncs = _.compact([
   applyMiddleware(thunk),
   devtoolMiddleware,
@@ -29,6 +36,7 @@ const middlewareFuncs = _.compact([
 
 const store = createStore(
   reducers,
+  defaultState,
   compose(...middlewareFuncs),
 );
 
@@ -45,8 +53,6 @@ io.on('removeChannel', (data) => {
 io.on('renameChannel', (data) => {
   store.dispatch(renameChannel(data));
 });
-
-store.dispatch(initChannels(gon));
 
 render(
   <Provider store={store}>

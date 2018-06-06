@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import routes from '../routes';
 
-export const initChannels = createAction('INIT_CHANNELS');
-export const initUser = createAction('INIT_USER');
 export const initSocket = createAction('INIT_SOCKET');
 
 export const makeRequest = createAction('MAKE_REQUEST');

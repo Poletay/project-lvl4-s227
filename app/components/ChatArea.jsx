@@ -1,7 +1,7 @@
 import React from 'react';
 import connect from '../connect';
 
-const mapStateToProps = ({ messages, currentChannelId }) => {
+const mapStateToProps = ({ messages, channels: { currentChannelId } }) => {
   const messageList = messages.filter(m => m.channelId === currentChannelId);
   const props = { messages: messageList };
   return props;

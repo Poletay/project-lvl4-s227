@@ -16,40 +16,40 @@ const requestsState = handleActions({
 }, {});
 
 const channels = handleActions({
-  [actions.initChannels](state, { payload }) {
-    return [...payload.channels];
-  },
   [actions.addNewChannel](state, { payload: { data: { attributes } } }) {
-    return [...state, attributes];
+    return {
+      ...state,
+      channelsList: [
+        ...state.channelsList,
+        attributes,
+      ],
+    };
   },
   [actions.removeChannel](state, { payload: { data: { id } } }) {
-    return state.filter(c => (c.id !== id));
+    return {
+      ...state,
+      currentChannelId:
+        state.currentChannelId === id ?
+          state.defaultChannelId :
+          state.currentChannelId,
+      channelsList: state.filter(c => (c.id !== id)),
+    };
+  },
+  [actions.changeChannel](state, { payload: { currentChannelId } }) {
+    return {
+      ...state,
+      currentChannelId,
+    };
   },
   [actions.renameChannel](state, { payload: { data: { attributes } } }) {
     const newState = [...state];
-    const channel = newState.find(c => c.id === attributes.id);
+    const channel = newState.channelsList.find(c => c.id === attributes.id);
     channel.name = attributes.name;
     return newState;
   },
 }, {});
 
-const currentChannelId = handleActions({
-  [actions.initChannels](state, { payload }) {
-    return payload.currentChannelId;
-  },
-  [actions.changeChannel](state, { payload }) {
-    return payload.currentChannelId;
-  },
-  [actions.removeChannel](state, { payload: { data: { id } } }) {
-    const defaultCurrentChannelId = 1;
-    return state === id ? defaultCurrentChannelId : state;
-  },
-}, {});
-
 const messages = handleActions({
-  [actions.initChannels](state, { payload }) {
-    return [...payload.messages];
-  },
   [actions.addNewMessage](state, { payload: { data: { attributes } } }) {
     return [...state, attributes];
   },
@@ -61,7 +61,6 @@ const messages = handleActions({
 export default combineReducers({
   form: formReducer,
   channels,
-  currentChannelId,
   messages,
   requestsState,
 });

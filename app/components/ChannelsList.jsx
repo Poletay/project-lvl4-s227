@@ -5,8 +5,8 @@ import connect from '../connect';
 import RemoveChannelForm from './RemoveChannelForm';
 import RenameChannelForm from './RenameChannelForm';
 
-const mapStateToProps = ({ channels }) => {
-  const props = { channels };
+const mapStateToProps = ({ channels: { channelsList } }) => {
+  const props = { channels: channelsList };
   return props;
 };
 

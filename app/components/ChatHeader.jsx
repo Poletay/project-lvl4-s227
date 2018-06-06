@@ -1,8 +1,9 @@
 import React from 'react';
 import connect from '../connect';
 
-const mapStateToProps = ({ channels, currentChannelId }) => {
-  const currentChannelName = channels.find(c => c.id === currentChannelId).name;
+const mapStateToProps = ({ channels }) => {
+  const currentChannelName =
+    channels.channelsList.find(c => c.id === channels.currentChannelId).name;
   return { currentChannelName };
 };
 
