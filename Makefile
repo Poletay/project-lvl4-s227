@@ -14,7 +14,7 @@ test:
 	npm test
 
 lint:
-	npm run lint --ext js --ext jsx .
+	npm run lint -- --ext js --ext jsx .
 
 publish:
 	git push heroku master
