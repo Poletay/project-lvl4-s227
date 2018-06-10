@@ -1,7 +1,7 @@
 install: install-deps
 
 start:
-	npm run nodemon -- --exec npm run babel-node -- dist/bin/slack.js
+	npm run nodemon -- --exec npm run babel-node -- server/bin/slack.js
 
 install-deps:
 	npm install

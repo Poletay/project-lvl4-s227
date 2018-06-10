@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import connect from '../connect';
 import UserContext from './UserContext';
 
-const mapStateToProps = ({ user, channels: { currentChannelId } }) => {
+const mapStateToProps = ({ user, channels: { currentChannelId },  }) => {
   const props = {
     currentChannelId,
     userName: user,
@@ -14,6 +14,9 @@ const mapStateToProps = ({ user, channels: { currentChannelId } }) => {
 @connect(mapStateToProps)
 class NewMessageForm extends React.Component {
   addMessage = userName => (values) => {
+    if (!values.text) {
+      return;
+    }
     this.props.addMessage(values, this.props.currentChannelId, userName);
     this.props.reset();
   }
@@ -24,8 +27,9 @@ class NewMessageForm extends React.Component {
         <UserContext.Consumer>
           { ({ userName }) => (
             <form onSubmit={this.props.handleSubmit(this.addMessage(userName))}>
-              <div>
-                <Field className="w-100 p-2 border border-secondary rounded" name="text" placeholder="Message" required component="input" type="text" />
+              <div className="input-group-prepend w-100">
+                <button className="input-group-text" id="new-message" onClick={this.props.handleSubmit(this.addMessage(userName))}>@</button>
+                <Field className="form-control" name="text" placeholder="Message" required component="input" type="text" aria-describedby="new-message" />
               </div>
             </form>
           )}
