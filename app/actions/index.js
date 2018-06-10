@@ -1,37 +1,34 @@
 import { createAction } from 'redux-actions';
 import axios from 'axios';
-
 import routes from '../routes';
 
-export const initSocket = createAction('INIT_SOCKET');
+export const doHttpRequestRequest = createAction('DO_HTTP_REQUEST_REQUEST');
+export const doHttpRequestSuccess = createAction('DO_HTTP_REQUEST_SUCCESS');
+export const doHttpRequestFailure = createAction('DO_HTTP_REQUEST_FAILURE');
 
-export const makeRequest = createAction('MAKE_REQUEST');
-export const makeSuccess = createAction('MAKE_SUCCESS');
-export const makeFailure = createAction('MAKE_FAILURE');
-
-export const addNewMessage = createAction('ADD_NEW_MESSAGE');
-export const addNewChannel = createAction('ADD_NEW_CHANNEL');
+export const addNewMessage = createAction('ADD_MESSAGE');
+export const addNewChannel = createAction('ADD_CHANNEL');
 export const changeChannel = createAction('CHANGE_CHANNEL');
 export const removeChannel = createAction('REMOVE_CHANNEL');
 export const renameChannel = createAction('RENAME_CHANNEL');
 
 export const deleteChannel = ({ channelId }) => async (dispatch) => {
   const requestName = 'channelDeletingState';
-  dispatch(makeRequest({ requestName }));
+  dispatch(doHttpRequestRequest({ requestName }));
   try {
     const url = routes.getDeleteChannelUrl(channelId);
 
     await axios.delete(url, {});
-    dispatch(makeSuccess({ requestName }));
+    dispatch(doHttpRequestSuccess({ requestName }));
   } catch (e) {
-    dispatch(makeFailure({ requestName }));
+    dispatch(doHttpRequestFailure({ requestName }));
     console.log(`Error for deleting channel. ${e.message}`); // eslint-disable-line no-console
   }
 };
 
 export const changeChannelName = ({ text }, { channelId }) => async (dispatch) => {
   const requestName = 'channelRenamingState';
-  dispatch(makeRequest({ requestName }));
+  dispatch(doHttpRequestRequest({ requestName }));
   try {
     const url = routes.getRenameChannelUrl(channelId);
 
@@ -44,9 +41,9 @@ export const changeChannelName = ({ text }, { channelId }) => async (dispatch) =
     };
 
     await axios.patch(url, newChannelData);
-    dispatch(makeSuccess({ requestName }));
+    dispatch(doHttpRequestSuccess({ requestName }));
   } catch (e) {
-    dispatch(makeFailure({ requestName }));
+    dispatch(doHttpRequestFailure({ requestName }));
     console.log(`Error for renaming channel. ${e.message}`); // eslint-disable-line no-console
   }
 };
@@ -54,7 +51,7 @@ export const changeChannelName = ({ text }, { channelId }) => async (dispatch) =
 
 export const addChannel = ({ text }) => async (dispatch) => {
   const requestName = 'channelAddingState';
-  dispatch(makeRequest({ requestName }));
+  dispatch(doHttpRequestRequest({ requestName }));
   try {
     const url = routes.getAddChannelUrl();
 
@@ -67,16 +64,16 @@ export const addChannel = ({ text }) => async (dispatch) => {
     };
 
     await axios.post(url, newChannelData);
-    dispatch(makeSuccess({ requestName }));
+    dispatch(doHttpRequestSuccess({ requestName }));
   } catch (e) {
-    dispatch(makeFailure({ requestName }));
+    dispatch(doHttpRequestFailure({ requestName }));
     console.log(`Error for adding new channel. ${e.message}`); // eslint-disable-line no-console
   }
 };
 
 export const addMessage = ({ text }, currentChannelId, userName) => async (dispatch) => {
   const requestName = 'messageSendingState';
-  dispatch(makeRequest({ requestName }));
+  dispatch(doHttpRequestRequest({ requestName }));
   try {
     const url = routes.getAddMessageUrl(currentChannelId);
     const newMessageData = {
@@ -89,9 +86,9 @@ export const addMessage = ({ text }, currentChannelId, userName) => async (dispa
     };
 
     await axios.post(url, newMessageData);
-    dispatch(makeSuccess({ requestName }));
+    dispatch(doHttpRequestSuccess({ requestName }));
   } catch (e) {
-    dispatch(makeFailure({ requestName }));
+    dispatch(doHttpRequestFailure({ requestName }));
     console.log(`Error for sending message. ${e.message}`); // eslint-disable-line no-console
   }
 };
