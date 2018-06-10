@@ -4,13 +4,13 @@ import { handleActions } from 'redux-actions';
 import * as actions from '../actions';
 
 const requestsState = handleActions({
-  [actions.makeRequest](state, { payload: { requestName } }) {
+  [actions.doHttpRequestRequest](state, { payload: { requestName } }) {
     return { ...state, [requestName]: 'requested' };
   },
-  [actions.makeFailure](state, { payload: { requestName } }) {
+  [actions.doHttpRequestFailure](state, { payload: { requestName } }) {
     return { ...state, [requestName]: 'failed' };
   },
-  [actions.makeSuccess](state, { payload: { requestName } }) {
+  [actions.doHttpRequestSuccess](state, { payload: { requestName } }) {
     return { ...state, [requestName]: 'successed' };
   },
 }, {});
