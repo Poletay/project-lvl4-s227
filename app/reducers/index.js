@@ -32,7 +32,7 @@ const channels = handleActions({
         state.currentChannelId === id ?
           state.defaultChannelId :
           state.currentChannelId,
-      channelsList: state.filter(c => (c.id !== id)),
+      channelsList: state.channelsList.filter(c => (c.id !== id)),
     };
   },
   [actions.changeChannel](state, { payload: { currentChannelId } }) {
@@ -42,10 +42,13 @@ const channels = handleActions({
     };
   },
   [actions.renameChannel](state, { payload: { data: { attributes } } }) {
-    const newState = [...state];
-    const channel = newState.channelsList.find(c => c.id === attributes.id);
+    const newChannelsList = [...state.channelsList];
+    const channel = newChannelsList.find(c => c.id === attributes.id);
     channel.name = attributes.name;
-    return newState;
+    return {
+      ...state,
+      channelsList: newChannelsList,
+    };
   },
 }, {});
 

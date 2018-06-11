@@ -5,7 +5,7 @@ import connect from '../connect';
 
 const mapStateToProps = ({ requestsState: { channelAddingState } }) => {
   const props = {
-    channelAddingState,
+    httpRequestState: channelAddingState,
   };
   return props;
 };
@@ -18,10 +18,15 @@ class NewChannelForm extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.isHttpRequestPending && nextProps.channelAddingState === 'successed') {
+    if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'successed') {
       this.setState({
         isHttpRequestPending: false,
         modal: false,
+      });
+    }
+    if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'failed') {
+      this.setState({
+        isHttpRequestPending: false,
       });
     }
   }
@@ -55,7 +60,7 @@ class NewChannelForm extends React.Component {
           <ModalBody>
             Add new channel to channels list.
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-              <Field disabled={disabled} className="w-100 p-2 border border-secondary rounded" name="text" placeholder="Channel Name" required component="input" type="text" />
+              <Field disabled={disabled} className="mt-2 mb-2 w-100 p-2 border border-secondary rounded" name="text" placeholder="Channel Name" required component="input" type="text" />
               <Button disabled={disabled} type="submit" color="primary">Submit</Button>{' '}
               <Button color="secondary" onClick={this.toggle}>Close</Button>
             </form>

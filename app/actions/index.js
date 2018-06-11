@@ -14,11 +14,13 @@ export const renameChannel = createAction('RENAME_CHANNEL');
 
 export const deleteChannel = ({ channelId }) => async (dispatch) => {
   const requestName = 'channelDeletingState';
+
   dispatch(doHttpRequestRequest({ requestName }));
   try {
     const url = routes.getDeleteChannelUrl(channelId);
 
     await axios.delete(url, {});
+
     dispatch(doHttpRequestSuccess({ requestName }));
   } catch (e) {
     dispatch(doHttpRequestFailure({ requestName }));

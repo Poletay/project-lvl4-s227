@@ -2,8 +2,10 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import connect from '../connect';
 
-const mapStateToProps = () => {
-  const props = {};
+const mapStateToProps = ({ requestsState: { channelDeletingState } }) => {
+  const props = {
+    httpRequestState: channelDeletingState,
+  };
   return props;
 };
 
@@ -11,7 +13,22 @@ const mapStateToProps = () => {
 export default class RemoveChannelForm extends React.Component {
   state = {
     modal: false,
+    isHttpRequestPending: false,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'successed') {
+      this.setState({
+        isHttpRequestPending: false,
+        modal: false,
+      });
+    }
+    if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'failed') {
+      this.setState({
+        isHttpRequestPending: false,
+      });
+    }
+  }
 
   toggle = () => {
     this.setState({
@@ -22,8 +39,8 @@ export default class RemoveChannelForm extends React.Component {
   deleteChannel = (e) => {
     e.preventDefault();
     const { channelId } = this.props;
+
     this.props.deleteChannel({ channelId });
-    this.toggle();
   }
 
   render() {

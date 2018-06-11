@@ -23,17 +23,18 @@ export default class ChannelsList extends React.Component {
       <li key={c.id}>
         <Button color="link" onClick={this.onClick(c.id)}>{c.name}</Button>
         {c.removable ? <RenameChannelForm buttonName="R" channelId={c.id} /> : ''}
-        {c.removable ? <RemoveChannelForm buttonName="-" channelId={c.id} /> : ''}
+        {c.removable ? <RemoveChannelForm buttonName="D" channelId={c.id} /> : ''}
       </li>
     ));
     return (
       <div>
         <div>
-          <h4>Channels (<NewChannelForm buttonName="ADD" />)</h4>
+          <h4>Channels:</h4>
           <ul>
             {channelsList}
           </ul>
         </div>
+        <NewChannelForm buttonName="New channel" />
       </div>
     );
   };

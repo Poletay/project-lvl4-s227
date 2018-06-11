@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import connect from '../connect';
 import UserContext from './UserContext';
 
-const mapStateToProps = ({ 
+const mapStateToProps = ({
   user,
   channels: { currentChannelId },
   requestsState: { messageSendingState },
@@ -28,6 +28,11 @@ class NewMessageForm extends React.Component {
         isHttpRequestPending: false,
       });
       nextProps.reset();
+    }
+    if (this.state.isHttpRequestPending && nextProps.messageSendingState === 'failed') {
+      this.setState({
+        isHttpRequestPending: false,
+      });
     }
   }
 
