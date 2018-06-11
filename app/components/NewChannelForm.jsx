@@ -3,8 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import connect from '../connect';
 
-const mapStateToProps = () => {
-  const props = {};
+const mapStateToProps = ({ requestsState: { channelAddingState } }) => {
+  const props = {
+    channelAddingState,
+  };
   return props;
 };
 
@@ -12,11 +14,28 @@ const mapStateToProps = () => {
 class NewChannelForm extends React.Component {
   state = {
     modal: false,
+    isHttpRequestPending: false,
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (this.state.isHttpRequestPending && nextProps.channelAddingState === 'successed') {
+      this.setState({
+        isHttpRequestPending: false,
+        modal: false,
+      });
+    }
+  }
+
   onSubmit = (values) => {
+    if (!values.text) {
+      return;
+    }
+
+    this.setState({
+      isHttpRequestPending: true,
+    });
+
     this.props.addChannel(values);
-    this.toggle();
   }
 
   toggle = () => {
@@ -27,6 +46,7 @@ class NewChannelForm extends React.Component {
   }
 
   render() {
+    const disabled = this.state.isHttpRequestPending;
     return (
       <div style={{ display: 'inline' }}>
         <Button size="sm" color="secondary" onClick={this.toggle}>{this.props.buttonName}</Button>
@@ -35,9 +55,9 @@ class NewChannelForm extends React.Component {
           <ModalBody>
             Add new channel to channels list.
             <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-              <Field className="w-100 p-2 border border-secondary rounded" name="text" placeholder="Channel Name" required component="input" type="text" />
-              <Button type="submit" color="primary">Submit</Button>{' '}
-              <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+              <Field disabled={disabled} className="w-100 p-2 border border-secondary rounded" name="text" placeholder="Channel Name" required component="input" type="text" />
+              <Button disabled={disabled} type="submit" color="primary">Submit</Button>{' '}
+              <Button color="secondary" onClick={this.toggle}>Close</Button>
             </form>
           </ModalBody>
         </Modal>

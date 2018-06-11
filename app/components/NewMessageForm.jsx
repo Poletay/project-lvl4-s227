@@ -3,33 +3,54 @@ import { Field, reduxForm } from 'redux-form';
 import connect from '../connect';
 import UserContext from './UserContext';
 
-const mapStateToProps = ({ user, channels: { currentChannelId } }) => {
+const mapStateToProps = ({ 
+  user,
+  channels: { currentChannelId },
+  requestsState: { messageSendingState },
+}) => {
   const props = {
     currentChannelId,
     userName: user,
+    messageSendingState,
   };
   return props;
 };
 
 @connect(mapStateToProps)
 class NewMessageForm extends React.Component {
+  state = {
+    isHttpRequestPending: false,
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.isHttpRequestPending && nextProps.messageSendingState === 'successed') {
+      this.setState({
+        isHttpRequestPending: false,
+      });
+      nextProps.reset();
+    }
+  }
+
   addMessage = userName => (values) => {
     if (!values.text) {
       return;
     }
+    this.setState({
+      isHttpRequestPending: true,
+    });
     this.props.addMessage(values, this.props.currentChannelId, userName);
-    this.props.reset();
   }
 
   render() {
+    const disabled = this.state.isHttpRequestPending;
     return (
       <div>
         <UserContext.Consumer>
           { ({ userName }) => (
             <form onSubmit={this.props.handleSubmit(this.addMessage(userName))}>
               <div className="input-group-prepend w-100">
-                <button className="input-group-text" id="new-message" onClick={this.props.handleSubmit(this.addMessage(userName))}>@</button>
-                <Field className="form-control" name="text" placeholder="Message" required component="input" type="text" aria-describedby="new-message" />
+                <button disabled={disabled} className="input-group-text" id="new-message" onClick={this.props.handleSubmit(this.addMessage(userName))}>@</button>
+                <Field disabled={disabled} className="form-control" name="text" placeholder="Message" required component="input" type="text" aria-describedby="new-message" />
               </div>
             </form>
           )}
