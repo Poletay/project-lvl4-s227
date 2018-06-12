@@ -18,7 +18,7 @@ const App = () => (
           <div className="card-body" style={{ overflow: 'auto' }}>
             <ChatArea />
           </div>
-          <div className="card-footer">
+          <div className="card-footer" style={{ height: 80 }}>
             <NewMessageForm />
           </div>
         </div>

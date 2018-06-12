@@ -2,6 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import connect from '../connect';
 import UserContext from './UserContext';
+import StatusBar from './StatusBar';
 
 const mapStateToProps = ({
   user,
@@ -11,7 +12,7 @@ const mapStateToProps = ({
   const props = {
     currentChannelId,
     userName: user,
-    messageSendingState,
+    httpRequestState: messageSendingState,
   };
   return props;
 };
@@ -23,13 +24,13 @@ class NewMessageForm extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.isHttpRequestPending && nextProps.messageSendingState === 'successed') {
+    if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'successed') {
       this.setState({
         isHttpRequestPending: false,
       });
       nextProps.reset();
     }
-    if (this.state.isHttpRequestPending && nextProps.messageSendingState === 'failed') {
+    if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'failed') {
       this.setState({
         isHttpRequestPending: false,
       });
@@ -48,15 +49,20 @@ class NewMessageForm extends React.Component {
 
   render() {
     const disabled = this.state.isHttpRequestPending;
+    const {
+      handleSubmit,
+      httpRequestState,
+    } = this.props;
     return (
       <div>
         <UserContext.Consumer>
           { ({ userName }) => (
-            <form onSubmit={this.props.handleSubmit(this.addMessage(userName))}>
+            <form onSubmit={handleSubmit(this.addMessage(userName))}>
               <div className="input-group-prepend w-100">
-                <button disabled={disabled} className="input-group-text" id="new-message" onClick={this.props.handleSubmit(this.addMessage(userName))}>@</button>
+                <button disabled={disabled} type="submit" className="input-group-text" id="new-message">@</button>
                 <Field disabled={disabled} className="form-control" name="text" placeholder="Message" required component="input" type="text" aria-describedby="new-message" />
               </div>
+              <StatusBar statusType={httpRequestState} />
             </form>
           )}
         </UserContext.Consumer>

@@ -22,8 +22,8 @@ export default class ChannelsList extends React.Component {
     const channelsList = channels.map(c => (
       <li key={c.id}>
         <Button color="link" onClick={this.onClick(c.id)}>{c.name}</Button>
-        {c.removable ? <RenameChannelForm buttonName="R" channelId={c.id} /> : ''}
-        {c.removable ? <RemoveChannelForm buttonName="D" channelId={c.id} /> : ''}
+        {c.removable ? <RenameChannelForm buttonName="R" channelId={c.id} channelName={c.name} /> : ''}
+        {c.removable ? <RemoveChannelForm buttonName="D" channelId={c.id} channelName={c.name} /> : ''}
       </li>
     ));
     return (

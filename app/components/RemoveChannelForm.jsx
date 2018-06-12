@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import StatusBar from './StatusBar';
 import connect from '../connect';
+
 
 const mapStateToProps = ({ requestsState: { channelDeletingState } }) => {
   const props = {
@@ -44,15 +46,25 @@ export default class RemoveChannelForm extends React.Component {
   }
 
   render() {
+    const {
+      buttonName,
+      className,
+      channelName,
+      httpRequestState,
+    } = this.props;
+
     return (
       <div style={{ display: 'inline' }}>
-        <Button size="sm" color="secondary" onClick={this.toggle}>{this.props.buttonName}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Delete channel.</ModalHeader>
+        <Button size="sm" color="secondary" onClick={this.toggle}>{buttonName}</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={className}>
+          <ModalHeader toggle={this.toggle}>Delete channel <b>{`"${channelName}"`}</b>.</ModalHeader>
           <ModalBody>
+            <StatusBar statusType={httpRequestState} />
+          </ModalBody>
+          <ModalFooter>
             <Button color="primary" onClick={this.deleteChannel}>Submit</Button>{' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-          </ModalBody>
+          </ModalFooter>
         </Modal>
       </div>
     );
