@@ -20,19 +20,33 @@ export default class RemoveChannelForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'successed') {
-      this.setState({
-        isHttpRequestPending: false,
-        modal: false,
-      });
+      this.togglePendingState();
+      this.hideModal();
     }
     if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'failed') {
-      this.setState({
-        isHttpRequestPending: false,
-      });
+      this.togglePendingState();
     }
   }
 
-  toggle = () => {
+  togglePendingState = () => {
+    this.setState({
+      isHttpRequestPending: !this.state.isHttpRequestPending,
+    });
+  }
+
+  showModal = () => {
+    this.setState({
+      modal: true,
+    });
+  }
+
+  hideModal = () => {
+    this.setState({
+      modal: false,
+    });
+  }
+
+  toggleModal = () => {
     this.setState({
       modal: !this.state.modal,
     });
@@ -55,15 +69,15 @@ export default class RemoveChannelForm extends React.Component {
 
     return (
       <div style={{ display: 'inline' }}>
-        <Button size="sm" color="secondary" onClick={this.toggle}>{buttonName}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={className}>
-          <ModalHeader toggle={this.toggle}>Delete channel <b>{`"${channelName}"`}</b>.</ModalHeader>
+        <Button size="sm" color="secondary" onClick={this.showModal}>{buttonName}</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={className}>
+          <ModalHeader toggle={this.toggleModal}>Delete channel <b>{`"${channelName}"`}</b>.</ModalHeader>
           <ModalBody>
             <StatusBar statusType={httpRequestState} />
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.deleteChannel}>Submit</Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            <Button color="secondary" onClick={this.hideModal}>Close</Button>
           </ModalFooter>
         </Modal>
       </div>

@@ -20,15 +20,11 @@ class NewChannelForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'successed') {
-      this.setState({
-        isHttpRequestPending: false,
-        modal: false,
-      });
+      this.togglePendingState();
+      this.hideModal();
     }
     if (this.state.isHttpRequestPending && nextProps.httpRequestState === 'failed') {
-      this.setState({
-        isHttpRequestPending: false,
-      });
+      this.togglePendingState();
     }
   }
 
@@ -36,15 +32,30 @@ class NewChannelForm extends React.Component {
     if (!values.text) {
       return;
     }
-
-    this.setState({
-      isHttpRequestPending: true,
-    });
-
+    this.togglePendingState();
     this.props.addChannel(values);
   }
 
-  toggle = () => {
+  togglePendingState = () => {
+    this.setState({
+      isHttpRequestPending: !this.state.isHttpRequestPending,
+    });
+  }
+
+  showModal = () => {
+    this.setState({
+      modal: true,
+    });
+  }
+
+  hideModal = () => {
+    this.props.reset();
+    this.setState({
+      modal: false,
+    });
+  }
+
+  toggleModal = () => {
     this.props.reset();
     this.setState({
       modal: !this.state.modal,
@@ -61,10 +72,10 @@ class NewChannelForm extends React.Component {
     } = this.props;
     return (
       <div>
-        <Button size="sm" color="secondary" onClick={this.toggle}>{buttonName}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={className}>
+        <Button size="sm" color="secondary" onClick={this.showModal}>{buttonName}</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggleModal} className={className}>
           <form onSubmit={handleSubmit(this.onSubmit)}>
-            <ModalHeader toggle={this.toggle}>Add new channel.</ModalHeader>
+            <ModalHeader toggle={this.toggleModal}>Add new channel.</ModalHeader>
             <ModalBody>
               Add new channel to channels list.
               <Field disabled={disabled} className="mt-2 mb-2 w-100 p-2 border border-secondary rounded" name="text" placeholder="Channel Name" required component="input" type="text" />
@@ -73,7 +84,7 @@ class NewChannelForm extends React.Component {
             <ModalFooter>
               <div>
                 <Button disabled={disabled} type="submit" color="primary">Submit</Button>
-                <Button className="ml-3" color="secondary" onClick={this.toggle}>Close</Button>
+                <Button className="ml-3" color="secondary" onClick={this.hideModal}>Close</Button>
               </div>
             </ModalFooter>
           </form>
